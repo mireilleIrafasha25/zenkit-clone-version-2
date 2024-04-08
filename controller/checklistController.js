@@ -44,6 +44,19 @@ const checklistcontroller={
             res.status(500).json({message:"Internal server error"})
         }
     },
+    UpdateList:async(req,res)=>
+    {
+        const updatedlist=await checklistmodel.findByIdAndUpdate(req.params.id,req.body,{set:true})
+        try {
+            res.status(200).json({
+                checklist:updatedlist
+            })
+        }
+        catch(error){
+            console.log(error.message)
+            res.status(500).json({message:"Internal server error"})
+        }
+    },
     DeleteList:async(req,res)=>
     {
         const deletedlist=await checklistmodel.findByIdAndDelete(req.params.id)

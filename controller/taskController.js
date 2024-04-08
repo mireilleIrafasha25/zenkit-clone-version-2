@@ -9,7 +9,7 @@ const Taskcontroller={
         const checklist=await taskModel.create(req.body)
         try {
             res.status(201).json({
-                message:"checklist created successfully",
+                message:"task created successfully",
                 check:checklist
             })
         }
@@ -31,12 +31,12 @@ const Taskcontroller={
             res.status(500).json({message:"Internal server error"})
         }
     },
-    GetCheckList:async(req,res)=>
+    GetTaskbyId:async(req,res)=>
     {
         const Task=await taskModel.findById(req.params.id)
         try {
             res.status(200).json({
-                check:Task
+                task:Task
             })
         }
         catch(error){
@@ -44,12 +44,25 @@ const Taskcontroller={
             res.status(500).json({message:"Internal server error"})
         }
     },
-    DeleteList:async(req,res)=>
+    UpdateTask:async(req,res)=>
+    {
+        const updatedTask=await taskModel.findByIdAndUpdate(req.params.id,req.body,{set:true})
+        try {
+            res.status(200).json({
+                check:updatedTask
+            })
+        }
+        catch(error){
+            console.log(error.message)
+            res.status(500).json({message:"Internal server error"})
+        }
+    },
+    DeleteTask:async(req,res)=>
     {
         const deletedtask=await taskModel.findByIdAndDelete(req.params.id)
         try {
             res.status(200).json({
-                check:deletedtask
+                task:deletedtask
             })
         }
         catch(error){

@@ -6,10 +6,10 @@ import taskRoutes from './route/taskRoute.js';
 import checklistRoutes from './route/checkListRoute.js';
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/taskApp', 
+mongoose.connect('mongodb+srv://mireilleirafasha:4Ows3YB73QvD1LXM@cluster0.4bfpmyu.mongodb.net/taskApp', 
 // {
 //   useNewUrlParser: true,
 //   useUnifiedTopology: true
