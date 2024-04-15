@@ -1,12 +1,16 @@
 // controllers/checklistController.js
-
 import checklistmodel from "../model/checkListModel.js";
-
+import { validationResult } from "express-validator";
 // Define controller methods here
 const checklistcontroller={
     create:async(req,res)=>
     {
         const checklist=await checklistmodel.create(req.body)
+        const errors=validationResult(req)
+        if(!errors.isEmpty())
+        {
+            return res.status(400).json({errors: errors.array()});
+        }
         try {
             res.status(201).json({
                 message:"checklist created successfully",
@@ -14,8 +18,7 @@ const checklistcontroller={
             })
         }
         catch(error){
-            console.log(error.message)
-            res.status(500).json({message:"Internal server error"})
+            next(error);
         }
     },
     List:async(req,res)=>
@@ -27,8 +30,7 @@ const checklistcontroller={
             })
         }
         catch(error){
-            console.log(error.message)
-            res.status(500).json({message:"Internal server error"})
+            next(error)
         }
     },
     GetCheckList:async(req,res)=>
@@ -40,8 +42,7 @@ const checklistcontroller={
             })
         }
         catch(error){
-            console.log(error.message)
-            res.status(500).json({message:"Internal server error"})
+           next(error)
         }
     },
     UpdateList:async(req,res)=>
@@ -53,8 +54,7 @@ const checklistcontroller={
             })
         }
         catch(error){
-            console.log(error.message)
-            res.status(500).json({message:"Internal server error"})
+            next(error)
         }
     },
     DeleteList:async(req,res)=>
@@ -66,8 +66,7 @@ const checklistcontroller={
             })
         }
         catch(error){
-            console.log(error.message)
-            res.status(500).json({message:"Internal server error"})
+            next(error)
         }
     },
 }

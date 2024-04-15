@@ -1,12 +1,16 @@
 // controllers/taskController.js
 
 import taskModel from "../model/taskModel.js";
-
+import { validationResult } from "express-validator";
 // Define controller methods here
 const Taskcontroller={
     create:async(req,res)=>
     {
         const checklist=await taskModel.create(req.body)
+        const error=validationResult(req);
+        if(!error.isEmpty()) {
+             return res.status(400).json({errors:error.array()})
+        }
         try {
             res.status(201).json({
                 message:"task created successfully",
@@ -14,8 +18,7 @@ const Taskcontroller={
             })
         }
         catch(error){
-            console.log(error.message)
-            res.status(500).json({message:"Internal server error"})
+            next(error)
         }
     },
     List:async(req,res)=>
@@ -27,8 +30,7 @@ const Taskcontroller={
             })
         }
         catch(error){
-            console.log(error.message)
-            res.status(500).json({message:"Internal server error"})
+           next(error)
         }
     },
     GetTaskbyId:async(req,res)=>
@@ -40,11 +42,10 @@ const Taskcontroller={
             })
         }
         catch(error){
-            console.log(error.message)
-            res.status(500).json({message:"Internal server error"})
+           next(error)
         }
     },
-    UpdateTask:async(req,res)=>
+    UpdateTask:async(req,res,next)=>
     {
         const updatedTask=await taskModel.findByIdAndUpdate(req.params.id,req.body,{set:true})
         try {
@@ -53,8 +54,7 @@ const Taskcontroller={
             })
         }
         catch(error){
-            console.log(error.message)
-            res.status(500).json({message:"Internal server error"})
+            next(error)
         }
     },
     DeleteTask:async(req,res)=>
@@ -66,8 +66,7 @@ const Taskcontroller={
             })
         }
         catch(error){
-            console.log(error.message)
-            res.status(500).json({message:"Internal server error"})
+            next(error)
         }
     },
 }
