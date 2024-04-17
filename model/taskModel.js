@@ -9,7 +9,7 @@ const taskSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    enum: ['Weekly', 'Daily'],
+    //enum: ['Weekly', 'Daily'],
     required: true
   },
   priority: {
@@ -21,10 +21,10 @@ const taskSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  checklist: [{
+ /* checklist: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'ChecklistItem'
-  }],
+  }],*/
   workload: {
     type: Number,
     min: 0,

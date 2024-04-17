@@ -1,0 +1,244 @@
+{
+    "swagger":"2.0",
+        "info": {
+            "title": "Swagger",
+            "description": "API Documentation of  ZENKIT VERSION 2",
+            "contact":{"email":"mireilleirafasha@gmail.com"},
+            "license": {"name": "MIT", "url": "http://opensource.org/licenses/MIT"},
+            "version": "1.0.0"
+        },
+            "externalDocs":{
+                "description": "Get source code",
+                "url": "https://github.com/mireilleIrafasha25/zenkit-clone-version-2"
+            },
+        "basePath": "/api/v2",
+        "servers":[
+        {
+     "url":"http://localhost:3001",
+     "description":"Local server"
+        },
+    {
+        "url":"https://zenkit-clone-version-2.herokuapp.com",
+        "description":"Production server"
+    }],
+        "schemes": ["http", "https"],
+        "tags":[
+            {
+                "name": "Task",
+                "description": "Operations pertaining to tasks"
+            }
+        ],
+        "paths": {
+            "/tasks/create":
+            {
+                "post":
+                {
+                    
+                    "summary":  "addTask",
+                    "description": "Create a new Task with the provided details",
+                    "tags": ["Task"],
+                    "parameters": [
+                        {
+                            "name":"Zenkit2-Body",
+                            "in":"body",
+                            "required":true,
+                            "schema":{"$ref": "#/component/schemas/zenktit version 2"}
+                            }],
+                    "requestedBody":
+                    {
+                "content":{
+                    "application/json":{
+                        "schema":{"$ref": "#/component/schemas/zenktit version 2"}
+                    }
+                }
+                    },
+                    "responses": {
+                        "201":{
+                        "description":"Task created successfully",
+                        "content":{
+                            "application/json":{
+                                "schema":{"$ref":"#/component/schemas/zenktit version 2"}
+                            }
+                        }
+                        },
+                        "400":
+                        {
+                            "description":"Bad request-Validation",
+                            "content":{
+                                "application/json":{
+                                    "schema":{
+                                        "type":"object",
+                                        "properties":{
+                                            "message":{
+                                                "type":"string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+            },
+            "/tasks/list":
+            {
+
+                "get":
+                {
+                    "tags":["Task"],
+                "summary":"Get all tasks",
+            "description":"Returns all tasks created" ,
+            
+            "responses":{
+                "200":{
+                    "description":"All the Tasks",
+                    "content":{
+                        "schema":{
+                            "type":"array",
+                            "items":{
+                                "$ref":"#/component/schemas/zenktit version 2"
+                            }
+                        }
+                    }
+                }
+        }
+            }
+            
+        },
+        "/tasks/update/{id}":{
+            "put":{
+                "tags":["Task"],
+                "summary":"Update Task",
+                "description":"Update a task with the specified id",
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "required":true,
+                        "schema":{"type":"string"}
+                    },
+                    {
+                        "name":"Zenkit2-Body",
+                        "in":"body",
+                        "required":true,
+                        "schema":{"$ref": "#/component/schemas/zenktit version 2"}
+                    }
+                ],
+                "requestedBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{"$ref": "#/component/schemas/zenktit version 2"}
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"Task updated successfully",
+                        "content":{
+                            "application/json":{
+                                "schema":{"$ref":"#/component/schemas/zenktit version 2"}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tasks/getbyId/{id}":{
+            "get":{
+                "tags":["Task"],
+                "summary":"Get Task by Id",
+                "description":"Get a task with the specified id",
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "required":true,
+                        "schema":{"type":"string"}
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"Task",
+                        "content":{
+                            "application/json":{
+                                "schema":{"$ref":"#/component/schemas/zenktit version 2"}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tasks/delete/{id}":
+        {
+            "delete":{
+                "tags":["Task"],
+                "summary":"Delete Task",
+                "description":"Delete a task with the specified id",
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "required":true,
+                        "schema":{"type":"string"}
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"Task",
+                        "content":{
+                            "application/json":{
+                                "schema":{"$ref":"#/component/schemas/zenktit version 2"}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+        "component":{
+        "schemas":
+        {
+            "zenktit version 2": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "description": "Title of the Task",
+                        "default":"...."
+                    },
+                    "category": {
+                        "type": "string",
+                        "default":"...",
+                        "description": "Category of your task"
+                        
+                    },
+                    "priority" : {
+                        "type":"string",
+                        "description": "Priority of your task",
+                        "default":"MEDIUM",
+                        "enum": ["LOW", "MEDIUM", "HIGH", "VERY HIGH"]
+                    },
+                    "color" : {
+                        "type":"string",
+                        "default":"...",
+                        "description": "Color of Tasks"
+                    },
+                    "checklist" : {
+                        "type":"string",
+                        "default":"...",
+                        "description": "Checklist defined in checklist model"
+                    },
+                    "workload" : {
+                        "type":"number",
+                        "default":1,
+                        "description": "Workload of  a task"
+                    }
+                    }
+                    }
+                },
+                "required": ["title","category","priority","color","workload"]
+                
+            }
+            
+            }
